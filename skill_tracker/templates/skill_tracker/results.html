@@ -26,45 +26,13 @@ Skill Distribution
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-<h2>Skill Distribution</h2>
-<div class="outer">
     <div class="container">
-
-        <h3>Linux</h3>
-        <ul>
-            {% for rating in ratings.linux %}
-                <li>{{ rating.linux }}: {{ rating.count }}</li>
-            {% endfor %}
-        </ul>
-
-        <h3>Python</h3>
-        <ul>
-            {% for rating in ratings.python %}
-                <li>{{ rating.python }}: {{ rating.count }}</li>
-            {% endfor %}
-        </ul>
-
-        <h3>Database</h3>
-        <ul>
-            {% for rating in ratings.database %}
-                <li>{{ rating.database }}: {{ rating.count }}</li>
-            {% endfor %}
-        </ul>
-
-        <h3>Git</h3>
-        <ul>
-            {% for rating in ratings.git %}
-                <li>{{ rating.git }}: {{ rating.count }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div>
+        <h2>Skill Distribution</h2>
         <canvas id="linuxChart"></canvas>
         <canvas id="pythonChart"></canvas>
         <canvas id="databaseChart"></canvas>
         <canvas id="gitChart"></canvas>
     </div>
-</div>
 <script>
     const skillData = {{ data|safe }};
     console.log(skillData);
@@ -89,13 +57,25 @@ Skill Distribution
                 data: linuxData.counts,
                 backgroundColor: ['red', 'blue', 'green'], // Colors for bars
             }]
-        },
+    },
         options: {
             responsive: true,
             plugins: {
-                legend: { display: true }
+                legend: {
+                    labels: {
+                        color: 'green', // Color of the legend text
+                        font: {
+                            size: 14 // Font size of the legend text
+                        },
+                        boxWidth: 0, // Removes the box
+                        boxHeight: 0, // Optional: Ensures the box height is also removed
+                    }
+                }
             }
         }
+        
+
+
     });
 
     // Repeat for Python, Database, and Git
