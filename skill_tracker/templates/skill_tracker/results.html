@@ -33,6 +33,7 @@ Skill Distribution
         <canvas id="databaseChart"></canvas>
         <canvas id="gitChart"></canvas>
     </div>
+
 <script>
     const skillData = {{ data|safe }};
     console.log(skillData);
@@ -63,9 +64,8 @@ Skill Distribution
             plugins: {
                 legend: {
                     labels: {
-                        color: 'green', // Color of the legend text
                         font: {
-                            size: 14 // Font size of the legend text
+                            size: 20 // Font size of the legend text
                         },
                         boxWidth: 0, // Removes the box
                         boxHeight: 0, // Optional: Ensures the box height is also removed
@@ -74,8 +74,6 @@ Skill Distribution
             }
         }
         
-
-
     });
 
     // Repeat for Python, Database, and Git
@@ -93,7 +91,15 @@ Skill Distribution
         options: {
             responsive: true,
             plugins: {
-                legend: { display: true }
+                legend: {
+                    labels: {
+                        font: {
+                            size: 20 // Font size of the legend text
+                        },
+                        boxWidth: 0, // Removes the box
+                        boxHeight: 0, // Optional: Ensures the box height is also removed
+                    }
+                }
             }
         }
     });
@@ -112,7 +118,15 @@ Skill Distribution
         options: {
             responsive: true,
             plugins: {
-                legend: { display: true }
+                legend: {
+                    labels: {
+                        font: {
+                            size: 20 // Font size of the legend text
+                        },
+                        boxWidth: 0, // Removes the box
+                        boxHeight: 0, // Optional: Ensures the box height is also removed
+                    }
+                }
             }
         }
     });
@@ -131,7 +145,15 @@ Skill Distribution
         options: {
             responsive: true,
             plugins: {
-                legend: { display: true }
+                legend: {
+                    labels: {
+                        font: {
+                            size: 20 // Font size of the legend text
+                        },
+                        boxWidth: 0, // Removes the box
+                        boxHeight: 0, // Optional: Ensures the box height is also removed
+                    }
+                }
             }
         }
     });

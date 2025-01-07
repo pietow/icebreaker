@@ -17,20 +17,47 @@ class SkillRatingView(FormView):
         return super().form_valid(form)
 
 
+
 class SkillResultsView(TemplateView):
     template_name = 'skill_tracker/results.html'
 
     def get_context_data(self, **kwargs):
-        # Aggregate counts for each skill level
         context = super().get_context_data(**kwargs)
+
+        # Define all possible levels
+        skill_levels = ['beginner', 'intermediate', 'advanced']
+
+        # Helper function to ensure all levels are included
+        def fill_missing_levels(data, skill_field):
+            # Convert the existing data into a dictionary for easy lookup
+            counts = {item[skill_field]: item['count'] for item in data}
+            # Ensure all levels are present, add 0 for missing levels
+            return [
+                {skill_field: level, 'count': counts.get(level, 0)}
+                for level in skill_levels
+            ]
+
+        # Aggregate and ensure all levels are included
         context['ratings'] = {
-            'linux': list(SkillRating.objects.values('linux').annotate(count=Count('linux'))),
-            'python': list(SkillRating.objects.values('python').annotate(count=Count('python'))),
-            'database': list(SkillRating.objects.values('database').annotate(count=Count('database'))),
-            'git': list(SkillRating.objects.values('git').annotate(count=Count('git'))),
+            'linux': fill_missing_levels(
+                list(SkillRating.objects.values('linux').annotate(count=Count('linux'))),
+                'linux'
+            ),
+            'python': fill_missing_levels(
+                list(SkillRating.objects.values('python').annotate(count=Count('python'))),
+                'python'
+            ),
+            'database': fill_missing_levels(
+                list(SkillRating.objects.values('database').annotate(count=Count('database'))),
+                'database'
+            ),
+            'git': fill_missing_levels(
+                list(SkillRating.objects.values('git').annotate(count=Count('git'))),
+                'git'
+            ),
         }
-        context['data'] = json.dumps(context['ratings'])  # Convert to JSON for chart
+
+        # Convert the result to JSON for the template
+        context['data'] = json.dumps(context['ratings'])
         return context
-
-
 
